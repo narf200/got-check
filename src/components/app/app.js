@@ -1,21 +1,32 @@
-import React from 'react';
-import {Col, Row, Container} from 'reactstrap';
+import React, {useState} from 'react';
+import {Col, Row, Container, Button} from 'reactstrap';
 import Header from '../header';
 import RandomChar from '../randomChar';
 import ItemList from '../itemList';
 import CharDetails from '../charDetails';
 
 
+
 const App = () => {
+
+    const [toggle, setToggle] = useState(true)
+    const toggleHandler = () => {
+        setToggle(toggle !== true)
+    }
+    const showToggle = toggle ? <RandomChar/> : null;
+
     return (
         <> 
             <Container>
                 <Header />
             </Container>
             <Container>
+                <Button  onClick={toggleHandler}> toggle </Button>
+            </Container>
+            <Container>
                 <Row>
                     <Col lg={{size: 5, offset: 0}}>
-                        <RandomChar/>
+                        {showToggle}
                     </Col>
                 </Row>
                 <Row>
