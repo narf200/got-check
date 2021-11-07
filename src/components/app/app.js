@@ -57,22 +57,28 @@ class App extends React.Component {
                         </Col>
                     </Row>
                     <CharcacterPage />
-                    {/*<Row>*/}
-                    {/*    <Col md='6'>*/}
-                    {/*        <ItemList onCharSelected={this.onCharSelected} getData={this.gotService.getAllBooks}/>*/}
-                    {/*    </Col>*/}
-                    {/*    <Col md='6'>*/}
-                    {/*        <CharDetails charId={this.state.selectedChar}/>*/}
-                    {/*    </Col>*/}
-                    {/*</Row>*/}
-                    {/*<Row>*/}
-                    {/*    <Col md='6'>*/}
-                    {/*        <ItemList onCharSelected={this.onCharSelected}  getData={this.gotService.getAllHouses}/>*/}
-                    {/*    </Col>*/}
-                    {/*    <Col md='6'>*/}
-                    {/*        <CharDetails charId={this.state.selectedChar}/>*/}
-                    {/*    </Col>*/}
-                    {/*</Row>*/}
+                    <Row>
+                        <Col md='6'>
+                            <ItemList
+                                onCharSelected={this.onCharSelected}
+                                getData={this.gotService.getAllBooks}
+                                renderItem={(item) => item.name}/>
+                        </Col>
+                        <Col md='6'>
+                            <CharDetails charId={this.state.selectedChar}/>
+                        </Col>
+                    </Row>
+                    <Row>
+                        <Col md='6'>
+                            <ItemList
+                                onCharSelected={this.onCharSelected}
+                                getData={this.gotService.getAllHouses}
+                                renderItem={(item) => item.name}/>/>
+                        </Col>
+                        <Col md='6'>
+                            <CharDetails charId={this.state.selectedChar}/>
+                        </Col>
+                    </Row>
                 </Container>
             </>
         );
