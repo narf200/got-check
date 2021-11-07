@@ -4,7 +4,7 @@ class GotService {
         this._apiBase = 'https://www.anapioficeandfire.com/api';
     }
 
-    async getResource(url){
+    getResource = async url => {
         const res = await fetch(`${this._apiBase}${url}`);
 
         if(!res.ok){
@@ -14,98 +14,67 @@ class GotService {
         return await res.json();
     };
 
-    async getAllCharacters() {
+    getAllCharacters = async () => {
         const res = await this.getResource(`/characters?page=5&pageSize=10`)
         return res.map(this._transformCharacter)
-    }
+    };
 
-    async getCharacter(id) {
+    getCharacter = async id => {
         const character = await this.getResource(`/characters/${id}`)
         return this._transformCharacter(character)
-    }
+    };
 
 
-    getAllBooks() {
-        return this.getResource(`/books/`)
-    }
+    getAllBooks = async () => {
+        const res = await this.getResource(`/books/`)
+        return res.map(this._transfornBook)
+    };
 
-    getBook(id) {
-        return this.getResource(`/books/${id}/`)
-    }
-
-
-    getAllHouses() {
-        return this.getResource(`/houses/`)
-    }
-
-    getHouse(id) {
-        return this.getResource(`/houses/${id}/`)
-    }
+    getBook = async (id) => {
+        const book = await this.getResource(`/books/${id}/`)
+        return this._transfornBook(book)
+    };
 
 
-    _transformCharacter(char) {
+    getAllHouses = async () => {
+        const res = await this.getResource(`/houses/`)
+        return res.map(this._transformHouse)
+    };
+
+    getHouse = async (id) => {
+        const house = await this.getResource(`/houses/${id}/`)
+        return this._transformHouse(house)
+    };
+
+
+    _transformCharacter = char => {
+        console.log(char.culture)
         return {
-            name: char.name,
-            gender: char.gender,
-            born: char.born,
-            died: char.died,
-            culture: char.culture,
+            name: char.name ? char.name : 'no data ;(',
+            gender: char.gender ? char.gender  : 'no data ;(',
+            born: char.born ? char.born  : 'no data ;(',
+            died: char.died ? char.died  : 'no data ;(',
+            culture: char.culture ? char.culture  : 'no data ;(',
         }
-    }
+    };
 
-    _transformHouse(house){
-        return {
-            name: house.name,
-            region: house.region,
-            words: house.words,
-            titles: house.titles,
-            overlord: house.overlord,
-            ancestralWeapons: house.ancestralWeapons,
-        }
-    }
+    _transformHouse = house => ({
+        name: house.name,
+        region: house.region,
+        words: house.words,
+        titles: house.titles,
+        overlord: house.overlord,
+        ancestralWeapons: house.ancestralWeapons,
+    });
 
-    _transfornBook(book) {
-        return {
-            name: book.name,
-            numberOfPages: book.region,
-            publisher: book.words,
-            released: book.titles,
-        }
-    }
-
-
+    _transfornBook = book => ({
+        name: book.name,
+        numberOfPages: book.region,
+        publisher: book.words,
+        released: book.titles,
+    });
 
 }
-
-
-//
-// const got = new GotService()
-//
-// got.getAllCharacters()
-//     .then((res ) => {
-//         res.forEach(item => console.log(item.name))
-//     })
-//
-// got.getCharacter(13)
-//     .then((res ) => console.log(res))
-//
-//
-// got.getAllHouses()
-//     .then((res ) => {
-//         res.forEach(item => console.log(item.name))
-//     })
-//
-// got.getHouse(13)
-//     .then((res ) => console.log(res))
-//
-//
-// got.getAllBooks()
-//     .then((res ) => {
-//         res.forEach(item => console.log(item.name))
-//     })
-//
-// got.getBook(1)
-//     .then((res ) => console.log(res))
 
 
 export default GotService;
